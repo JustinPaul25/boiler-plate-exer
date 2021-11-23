@@ -18,7 +18,7 @@ export default class TodoServiceImpl {
 
     async DeleteTodo(props): Promise<Todo[]> {
         if(props.isDone) {
-            return this.todoRepo.GetTodos()
+            throw "Unable to delete completed tasks!"
         } else {
             return this.todoRepo.DeleteTodo(props.id)
         }

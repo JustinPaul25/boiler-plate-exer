@@ -31,10 +31,15 @@ export const storeTodo = createAsyncThunk("plantSlice/fetchList", async (props) 
 })
 
 export const deleteTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
-    const todoRepo = new TodoRepositoryImpl()
-    const todoService = new TodoService(todoRepo)
-    const asyncTodos = await todoService.DeleteTodo(props)
-    return asyncTodos;
+    try{
+        const todoRepo = new TodoRepositoryImpl()
+        const todoService = new TodoService(todoRepo)
+        const asyncTodos = await todoService.DeleteTodo(props)
+        return asyncTodos;
+    } catch(err) {
+        window.alert(err)
+        return rejectWithValue(err)
+    }
 })
 
 export const updateTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
@@ -51,7 +56,7 @@ export const doneTodo = createAsyncThunk("plantSlice/fetchList", async (props) =
     return asyncTodos;
 })
 
-export const doneAllTodo = createAsyncThunk("plantSlice/fetchList", async () => {
+export const doneAllTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
     const asyncTodos = await todoService.DoneAllTodo()
