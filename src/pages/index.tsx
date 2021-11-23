@@ -30,16 +30,15 @@ export default function Home() {
     }
 
     const handleSubmitTodo = () => {
-        // if(isEdit) {
-        //     dispatch(UpdateTodo({item: toEdit, data:todo, list: asyncTodos}))
-        //     setIsEdit(false)
-        //     setToEdit(null)
-        // } else {
-        dispatch(StoreTodo({todo: todo}))
-        console.log('index');
-        // }
+        if(isEdit) {
+            dispatch(UpdateTodo({item: toEdit, data:todo}))
+            setIsEdit(false)
+            setToEdit(null)
+        } else {
+            dispatch(StoreTodo({todo: todo}))
+        }
 
-        // setTodo('')
+        setTodo('')
     }
 
     const handleDeleteTodo = (item) => {

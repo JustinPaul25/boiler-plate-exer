@@ -24,7 +24,6 @@ export const fetchList = createAsyncThunk("plantSlice/fetchList", async () => {
 })
 
 export const StoreTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
-    console.log('slice');
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
     const asyncTodos = await todoService.StoreTodo(props)

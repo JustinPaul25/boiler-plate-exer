@@ -1,7 +1,8 @@
+import TodoServiceImpl from "domain/usecases/TodoService";
 import Todo from "../../domain/entities/Todo"
 import TodoRepository from "../../domain/repositories/TodoRepository"
 
-let todos = [
+var todos = [
     {id: 1, title: 'todo1'},
     {id: 2, title: 'todo2'},
     {id: 3, title: 'todo3'}
@@ -13,46 +14,39 @@ export default class TodoRepositoryImpl implements TodoRepository {
     }
 
     async StoreTodo(data): Promise<Todo[]> {
-        let newTodos = todos
-        await todos.push({id: newTodos[newTodos.length - 1].id + 1, title: data});
+        if(todos.length > 0){
+            const newData = todos.map((item) =>
+                ({ ...item })
+            )
+            newData.push({id:todos[todos.length - 1].id + 1, title: data.todo})
 
-        return todos;
+            todos = newData;
+            return newData;
+        }
+        return [{id:data.todos.length + 1, title: data.todo}]
     }
 
-    async StoreTodo(data, list): Promise<Todo[]> {
-        const newList = []
-        console.log(data)
-        for(var ctr = 0; ctr < list.length; ctr++) {
-            newList.push({id: list[ctr].id, title: list[ctr].title});
-        }
+    async DeleteTodo(data): Promise<Todo[]> {
+        const newData = todos.map((item) =>
+            ({ ...item })
+        )
         
-        newList.push({id: list[list.length - 1].id + 1, title: data});
+        const filteredData = newData.filter(item => item.id !== data);
         
-        return newList;
+        todos = filteredData;
+        return filteredData;
     }
 
-    async DeleteTodo(id, list): Promise<Todo[]> {
-        const newList = []
-        for(var ctr = 0; ctr < list.length; ctr++) {
-            if(id != list[ctr].id) {
-                newList.push({id: list[ctr].id, title: list[ctr].title});
-            }
-        }
-        
-        return newList;
-    }
+    async UpdateTodo(todo, data): Promise<Todo[]> {
+        const newData = todos.map((item) =>
+            ({ ...item })
+        )
 
-    async UpdateTodo(item, data, list): Promise<Todo[]> {
-        const newList = []
-        for(var ctr = 0; ctr < list.length; ctr++) {
-            if(item.id != list[ctr].id) {
-                newList.push({id: list[ctr].id, title: list[ctr].title});
-            } else {
-                newList.push({id: list[ctr].id, title: data});
-            }
-        }
+        var foundIndex = newData.findIndex(item => item.id == todo.id);
+        newData[foundIndex].title = data;
         
-        return newList;
+        todos = newData;
+        return newData;
     }
 }
 
