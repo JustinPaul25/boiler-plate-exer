@@ -13,12 +13,15 @@ export default class TodoServiceImpl {
     }
 
     async StoreTodo(props): Promise<Todo[]> {
-        console.log('service');
         return this.todoRepo.StoreTodo(props)
     }
 
     async DeleteTodo(props): Promise<Todo[]> {
-        return this.todoRepo.DeleteTodo(props.id, props.list)
+        if(props.isDone) {
+            return this.todoRepo.GetTodos()
+        } else {
+            return this.todoRepo.DeleteTodo(props.id)
+        }
     }
 
     async UpdateTodo(props): Promise<Todo[]> {

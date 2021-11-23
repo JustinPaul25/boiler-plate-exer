@@ -25,13 +25,6 @@ export default function Home() {
         setTodo('')
     }
 
-    const handleAllDoneClick = () => {
-        dispatch(fetchList())
-        setIsEdit(false)
-        setToEdit(null)
-        setTodo('')
-    }
-
     const handleTodoChange = (e: any) => {
         setTodo(e.target.value)
     }
@@ -56,8 +49,8 @@ export default function Home() {
         setTodo('')
     }
 
-    const handleDeleteTodo = (item) => {
-        dispatch(deleteTodo({id: item, list: asyncTodos}))
+    const handleDeleteTodo = (item, isDone) => {
+        dispatch(deleteTodo({id: item, isDone: isDone}))
     }
 
     const handleEditTodo = (item) => {
@@ -92,7 +85,7 @@ export default function Home() {
                             <button type="button" onClick={() => handleEditTodo(item)}>
                                 Edit
                             </button> 
-                            <button type="button" onClick={() => handleDeleteTodo(item.id)}>
+                            <button type="button" onClick={() => handleDeleteTodo(item.id, item.isDone)}>
                                 delete
                             </button>
                         </li>
