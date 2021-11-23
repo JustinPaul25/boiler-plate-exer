@@ -24,4 +24,12 @@ export default class TodoServiceImpl {
     async UpdateTodo(props): Promise<Todo[]> {
         return this.todoRepo.UpdateTodo(props.item, props.data)
     }
+
+    async DoneTodo(props): Promise<Todo[]> {
+        return this.todoRepo.DoneTodo(props.item)
+    }
+
+    async DoneAllTodo(): Promise<Todo[]> {
+        return this.todoRepo.DoneAllTodo()
+    }
 }

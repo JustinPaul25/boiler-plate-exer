@@ -23,24 +23,38 @@ export const fetchList = createAsyncThunk("plantSlice/fetchList", async () => {
     return asyncTodos
 })
 
-export const StoreTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
+export const storeTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
     const asyncTodos = await todoService.StoreTodo(props)
     return asyncTodos;
 })
 
-export const DeleteTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
+export const deleteTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
     const asyncTodos = await todoService.DeleteTodo(props)
     return asyncTodos;
 })
 
-export const UpdateTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
+export const updateTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
     const asyncTodos = await todoService.UpdateTodo(props)
+    return asyncTodos;
+})
+
+export const doneTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
+    const todoRepo = new TodoRepositoryImpl()
+    const todoService = new TodoService(todoRepo)
+    const asyncTodos = await todoService.DoneTodo(props)
+    return asyncTodos;
+})
+
+export const doneAllTodo = createAsyncThunk("plantSlice/fetchList", async () => {
+    const todoRepo = new TodoRepositoryImpl()
+    const todoService = new TodoService(todoRepo)
+    const asyncTodos = await todoService.DoneAllTodo()
     return asyncTodos;
 })
 

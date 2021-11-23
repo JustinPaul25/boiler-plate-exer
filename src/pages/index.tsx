@@ -2,7 +2,7 @@ import Todo from "domain/entities/Todo"
 import { useState } from "react"
 
 import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
-import { fetchList, StoreTodo, DeleteTodo, UpdateTodo } from "../app/redux/todo/asyncTodo.slice"
+import { fetchList, storeTodo, deleteTodo, updateTodo, doneTodo, doneAllTodo } from "../app/redux/todo/asyncTodo.slice"
 
 export default function Home() {
     const [todo, setTodo] = useState('')
@@ -25,31 +25,46 @@ export default function Home() {
         setTodo('')
     }
 
+    const handleAllDoneClick = () => {
+        dispatch(fetchList())
+        setIsEdit(false)
+        setToEdit(null)
+        setTodo('')
+    }
+
     const handleTodoChange = (e: any) => {
         setTodo(e.target.value)
     }
 
+    const handleIsDoneChange = (e: any) => {
+        dispatch(doneTodo({item: e.target.value}))
+    }
+
+    const handleDoneAllTodo = () => {
+        dispatch(doneAllTodo({item: toEdit, data:todo}))
+    }
+
     const handleSubmitTodo = () => {
         if(isEdit) {
-            dispatch(UpdateTodo({item: toEdit, data:todo}))
+            dispatch(updateTodo({item: toEdit, data:todo}))
             setIsEdit(false)
             setToEdit(null)
         } else {
-            dispatch(StoreTodo({todo: todo}))
+            dispatch(storeTodo({todo: todo}))
         }
 
         setTodo('')
     }
 
     const handleDeleteTodo = (item) => {
-        dispatch(DeleteTodo({id: item, list: asyncTodos}))
+        dispatch(deleteTodo({id: item, list: asyncTodos}))
     }
 
     const handleEditTodo = (item) => {
         setTodo(item.title)
         setIsEdit(true)
         setToEdit(item)
-        dispatch(DeleteTodo({item: item, list: asyncTodos}))
+        dispatch(deleteTodo({item: item, list: asyncTodos}))
     }
 
     return (
@@ -65,9 +80,14 @@ export default function Home() {
                 <button type="button" onClick={handleClick} disabled={loading}>
                     Refresh
                 </button>
+                <button type="button" onClick={handleDoneAllTodo} disabled={loading}>
+                    Mark All as Done
+                </button>
                 <ul>
                     {asyncTodos.map((item: Todo) => (
                         <li key={item.id}>
+                            <input type="checkbox" value={item.id} onChange={handleIsDoneChange} checked={item.isDone} />
+                            
                             {item.title}
                             <button type="button" onClick={() => handleEditTodo(item)}>
                                 Edit
