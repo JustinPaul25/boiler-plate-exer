@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
-import TodoRepositoryImpl from "../../../data/repositories/TodoRepositoryImpl"
+import TodoRepositoryImpl from "../../../data/repositories/TodoRepositoryLocalStorageImpl"
 import Item from "../../../domain/entities/Todo"
 import TodoService from "../../../domain/usecases/TodoService"
 import type { RootState } from "../store"
