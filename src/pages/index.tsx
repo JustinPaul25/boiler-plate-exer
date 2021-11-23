@@ -50,6 +50,9 @@ export default function Home() {
     }
 
     const handleDeleteTodo = (item, isDone) => {
+        if(isDone) {
+            window.alert("Completed Task cannot be deleted!")
+        }
         dispatch(deleteTodo({id: item, isDone: isDone}))
     }
 
