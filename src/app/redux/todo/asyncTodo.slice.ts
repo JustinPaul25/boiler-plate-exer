@@ -27,21 +27,21 @@ export const StoreTodo = createAsyncThunk("plantSlice/fetchList", async (props) 
     console.log('slice');
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
-    const asyncTodos = await todoService.StoreTodo(props.todo, props.list)
+    const asyncTodos = await todoService.StoreTodo(props)
     return asyncTodos;
 })
 
 export const DeleteTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
-    const asyncTodos = await todoService.DeleteTodo(props.id, props.list)
+    const asyncTodos = await todoService.DeleteTodo(props)
     return asyncTodos;
 })
 
 export const UpdateTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
     const todoRepo = new TodoRepositoryImpl()
     const todoService = new TodoService(todoRepo)
-    const asyncTodos = await todoService.UpdateTodo(props.item, props.data, props.list)
+    const asyncTodos = await todoService.UpdateTodo(props)
     return asyncTodos;
 })
 
