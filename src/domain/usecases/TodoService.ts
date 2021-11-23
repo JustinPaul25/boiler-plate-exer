@@ -13,7 +13,11 @@ export default class TodoServiceImpl {
     }
 
     async StoreTodo(props): Promise<Todo[]> {
-        return this.todoRepo.StoreTodo(props)
+        if(props.todo.length > 3) {
+            return this.todoRepo.StoreTodo(props)
+        } else {
+            throw "Todo Title must be 4 or more characters"
+        }
     }
 
     async DeleteTodo(props): Promise<Todo[]> {

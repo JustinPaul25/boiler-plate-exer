@@ -24,10 +24,15 @@ export const fetchList = createAsyncThunk("plantSlice/fetchList", async () => {
 })
 
 export const storeTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
-    const todoRepo = new TodoRepositoryImpl()
-    const todoService = new TodoService(todoRepo)
-    const asyncTodos = await todoService.StoreTodo(props)
-    return asyncTodos;
+    try{
+        const todoRepo = new TodoRepositoryImpl()
+        const todoService = new TodoService(todoRepo)
+        const asyncTodos = await todoService.StoreTodo(props)
+        return asyncTodos;
+    } catch(err) {
+        window.alert(err)
+        return rejectWithValue(err)
+    }
 })
 
 export const deleteTodo = createAsyncThunk("plantSlice/fetchList", async (props) => {
