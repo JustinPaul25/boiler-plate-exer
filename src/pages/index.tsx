@@ -100,13 +100,13 @@ export default function Home() {
             </div>
             <div>
                 <h2>Sync Reducer</h2>
-                {/* <div>
+                <div>
                     <ul>
                         {syncTodos.map((todos) => (
                             <li>{todos}</li>
                         ))}
                     </ul>
-                </div> */}
+                </div>
             </div>
         </div>
     )
